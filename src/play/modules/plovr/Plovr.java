@@ -15,12 +15,18 @@ import java.io.Writer;
 import java.util.logging.Level;
 
 public class Plovr {
-    
+
+    /** Cache of plovr dependency files */
     private static File[] depFiles = new File[0];
     public static String serverAddress = "localhost";
     public static int serverPort = 9810;
     public static String buildDirectory = "public" + File.separator + "plovr";
 
+    /**
+     * Initialize the module.
+     * In DEV mode it will serve the javascript fils raw.
+     * In PROD mode, it will compile the javascript files.
+     */
     public static void load() {
         serverAddress = Play.configuration.getProperty("plovr.server.address", serverAddress);
         serverPort = Integer.parseInt(Play.configuration.getProperty("plovr.server.port", "" + serverPort));
@@ -35,6 +41,9 @@ public class Plovr {
         }
     }
 
+    /**
+     * Start the plovr server
+     */
     private static void start() {
         CompilationServer server = new CompilationServer(serverAddress, serverPort);
         for (File depFile : depFiles) {
@@ -49,6 +58,9 @@ public class Plovr {
         server.run();
     }
 
+    /**
+     * Build the javascript files
+     */
     private static void build() {
         Logger.info("Compiling Javascript files ...");
         File target = new File(Play.applicationPath, buildDirectory);
