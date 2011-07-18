@@ -5,12 +5,10 @@
 goog.provide('${namespace}');
 
 ${namespace}._computeUrl_ = function(pattern, args) {
-  return function() {
-    for (var i = 0 ; i < args.length ; i++) {
-      pattern = pattern.replace(':'+i+':', args[i]);
-    }
-    return pattern;
-  };
+  for (var i = 0 ; i < args.length ; i++) {
+    pattern = pattern.replace(':'+i+':', args[i]);
+  }
+  return pattern;
 };
 
 #{list routes}

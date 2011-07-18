@@ -46,6 +46,11 @@ play.modules.plovr.CrudModel.prototype = {
       goog.events.listen(xhr, goog.net.EventType.COMPLETE, opt_callback, false, this);
     }
     var data = opt_data !== undefined ? opt_data : null;
-    xhr.send(route.url, route.method, data, {'Accept': 'application/json'});
+    var headers = {'Accept': 'application/json'};
+    if (route.method == 'PUT') {
+      route.method = 'POST';
+      headers['X-HTTP-Method-Override'] = 'PUT';
+    }
+    xhr.send(route.url, route.method, data, headers);
   }
 };
