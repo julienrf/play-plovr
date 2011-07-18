@@ -34,7 +34,7 @@ public class Plovr {
 
         depFiles = VirtualFile.open(new File(Play.applicationPath, "conf" + File.separator + "plovr")).getRealFile().listFiles();
 
-        if (Play.mode == Play.Mode.DEV) { // In DEV mode, start Plovr deamon
+        if (Play.mode.isDev()) { // In DEV mode, start Plovr deamon
             start();
         } else { // In PROD mode, build static files
             build();
@@ -77,7 +77,6 @@ public class Plovr {
                 }
                 Logger.debug("Compiled %s into %s bytes", depFile.getName(), compilation.getCompiledCode().length());
                 Writer writer = new FileWriter(compiled);
-                Logger.debug("fooo");
                 writer.write(compilation.getCompiledCode());
                 if (result.success) {
                     Logger.debug("'%s' successfully compiled into '%s'", depFile.getName(), compiled.getAbsolutePath());
