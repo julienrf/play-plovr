@@ -15,9 +15,8 @@ ${namespace}._computeUrl_ = function(pattern, args) {
   %{ route = namespace + '.' + _.action }%
   goog.provide('${route}');
   ${route} = function() {
-    var url = ${_.args ? namespace + "._computeUrl_('" + _.url.raw() + "', arguments)" : "'" + _.url.raw() + "'"};
-   return {
-      url:  url,
+    return {
+      url: ${_.args ? namespace + "._computeUrl_('" + _.url.raw() + "', arguments)" : "'" + _.url.raw() + "'"},
       method: '${_.method}'
     };
   };
